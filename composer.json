@@ -1,0 +1,29 @@
+{
+	"name": "iomsystem",
+  	"description": "IOM System is a web based IOM system written in the PHP language. It uses MySQL as backend and has a simple user interface",
+	"license": "MIT",
+	"authors": [
+		{
+		    "name": "jlctmaster"
+		}
+	],
+	"type": "project",
+	"keywords": [
+	    "input-and-output-materials-management",
+	    "IOM"
+	],
+	"homepage": "https://bitbucket.org/jlctmaster/iomsystem",
+	"require": {
+		"php": "^5.5 || ^7.0",
+		"codeigniter/framework": "^3.1",
+		"dompdf/dompdf": "^0.7",
+		"tamtamchik/namecase": "^1.0",
+		"paragonie/random_compat": "^2.0",
+	    "composer/installers": "1.*",
+	    "bower-asset/jquery": ">=1.9.0 <4.0.0"
+	},
+	"require-dev": {
+		"mikey179/vfsStream": "1.1.*",
+		"vlucas/phpdotenv": "^2.4"
+	}
+}

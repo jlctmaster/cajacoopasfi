@@ -1,0 +1,1 @@
+ALTER TABLE `iom_items` ADD `mark` VARCHAR(255) NULL DEFAULT NULL AFTER `category`;

@@ -1,0 +1,29 @@
+<?php 
+
+$lang["suppliers_account_number"] = "Cuenta #";
+$lang["suppliers_agency_name"] = "Nombre de la Agencia";
+$lang["suppliers_association_date"] = "Fecha de Asociación";
+$lang["suppliers_cannot_be_deleted"] = "No se pudo borrar los socios seleccionados. Uno o más de los seleccionados tiene ventas.";
+$lang["suppliers_company_name"] = "Nombre de la Compañía";
+$lang["suppliers_company_name_required"] = "Nombre de la Compañía es requerido.";
+$lang["suppliers_confirm_delete"] = "¿Seguro(a) de querer borrar los socios/proveedores seleccionados?";
+$lang["suppliers_confirm_restore"] = "Esta seguro de quere restaurar lo(s) Socio(es) seleccionado(s)?";
+$lang["suppliers_error_adding_updating"] = "Error agregando/actualizando socio/proveedor.";
+$lang["suppliers_excel_import_failed"] = "Falló la importación de Hoja de Cálculo";
+$lang["suppliers_excel_import_nodata_wrongformat"] = "El archivo subido no tiene informacion o el formato es incorrecto.";
+$lang["suppliers_excel_import_partially_failed"] = "La mayoria de los socios/proveedor se importaron pero algunos no:";
+$lang["suppliers_excel_import_success"] = "Importacion de Socios/Proveedores exitosa.";
+$lang["suppliers_growing_area_id"] = "Comité de Base";
+$lang["suppliers_growing_area_none_selected"] = "Comité de Base no puede ser 'Ninguno'";
+$lang["suppliers_import_items_excel"] = "Importar Socios/Proveedores desde Excel";
+$lang["suppliers_ispartner"] = "Socio";
+$lang["suppliers_new"] = "Nuevo Socio/Proveedor";
+$lang["suppliers_none"] = "Ninguno";
+$lang["suppliers_none_selected"] = "No has seleccionado socios para borrar.";
+$lang["suppliers_one_or_multiple"] = "socio(es)";
+$lang["suppliers_successful_adding"] = "Has agregado el socio/proveedor satisfactoriamente";
+$lang["suppliers_successful_deleted"] = "Has borrado satisfactoriamente a";
+$lang["suppliers_successful_updating"] = "Has actualizado el socio/proveedor satisfactoriamente";
+$lang["suppliers_supplier"] = "Socio";
+$lang["suppliers_supplier_id"] = "Id";
+$lang["suppliers_update"] = "Actualizar Socio/Proveedor";

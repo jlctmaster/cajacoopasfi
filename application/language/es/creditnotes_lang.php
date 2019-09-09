@@ -1,0 +1,31 @@
+<?php 
+
+$lang["creditnote_amount_required"] = "Monto es un campo requerido.";
+$lang["creditnote_documentdate_required"] = "Fecha del documento es un campo requerido.";
+$lang["creditnote_documentno_required"] = "N° de documento es un campo requerido.";
+$lang["creditnote_name_required"] = "Socio es un campo requerido.";
+$lang["creditnote_trx_number_required"] = "N° Transacción es un campo requerido.";
+$lang["creditnotes_creditnote_id"] = "Id";
+$lang["creditnotes_amount"] = "Importe";
+$lang["creditnotes_cash_book_id"] = "Libro de Caja";
+$lang["creditnotes_cash_concept_id"] = "Concepto";
+$lang["creditnotes_cannot_be_deleted"] = "No se pudieron eliminar la(s) Nota(s) de Crédito";
+$lang["creditnotes_confirm_delete"] = "¿Está seguro de que desea eliminar la Nota de Crédito seleccionado?";
+$lang["creditnotes_confirm_restore"] = "¿Está seguro de que desea restaurar la Nota de Crédito seleccionado?";
+$lang["creditnotes_delete"] = "Eliminar Nota de Crédito";
+$lang["creditnotes_description"] = "Descripción";
+$lang["creditnotes_documentdate"] = "Fecha Documento";
+$lang["creditnotes_documentno"] = "N° Documento";
+$lang["creditnotes_error_adding_updating"] = "Error agregando/actualizando la Nota de Crédito";
+$lang["creditnotes_info"] = "Información de Notas de Crédito";
+$lang["creditnotes_new"] = "Nueva Nota de Crédito";
+$lang["creditnotes_no_creditnotes_to_display"] = "No hay Notas de Crédito para mostrar";
+$lang["creditnotes_none_selected"] = "No has seleccionado ninguna Nota de Crédito.";
+$lang["creditnotes_none_to_be_deleted"] = "Ninguno para ser eliminado";
+$lang["creditnotes_one_or_multiple"] = "Notas de Crédito";
+$lang["creditnotes_paymentterm"] = "Forma de Pago";
+$lang["creditnotes_successful_adding"] = "Nota de Crédito agregado exitosamente";
+$lang["creditnotes_successful_deleted"] = "Nota de Crédito eliminado exitosamente";
+$lang["creditnotes_successful_updating"] = "Nota de Crédito actualizado exitosamente";
+$lang["creditnotes_trx_number"] = "N° Transacción";
+$lang["creditnotes_update"] = "Actualizar Nota de Crédito";

@@ -1,0 +1,37 @@
+<?php 
+
+$lang["doctypesequence_doctype_required"] = "Document type is a field required";
+$lang["doctypesequence_name_required"] = "Name is a field required";
+$lang["doctypesequence_next_sequence_required"] = "Next sequence is a field required";
+$lang["doctypesequence_number_incremental_required"] = "Number incremental is a field required";
+$lang["doctypesequences_cannot_be_deleted"] = "Could not delete Document type sequence(s)";
+$lang["doctypesequences_confirm_delete"] = "Are you sure you want to delete the selected Document type sequence?";
+$lang["doctypesequences_confirm_restore"] = "Are you sure you want to restore the selected Document type sequence?";
+$lang["doctypesequences_doctype"] = "Document Type";
+$lang["doctypesequences_doctype_adjustnote"] = "Adjust Note";
+$lang["doctypesequences_doctype_cost"] = "Cost";
+$lang["doctypesequences_doctype_cost_overallcash"] = "Cost (OverAll Cash)";
+$lang["doctypesequences_doctype_creditnote"] = "Credit Note";
+$lang["doctypesequences_doctype_expense"] = "Expense";
+$lang["doctypesequences_doctype_income"] = "Income";
+$lang["doctypesequences_doctype_income_overallcash"] = "Income (OverAll Cash)";
+$lang["doctypesequences_doctype_invoice"] = "Invoice";
+$lang["doctypesequences_doctype_ticketsale"] = "Ticket Sale";
+$lang["doctypesequences_doctype_voucher"] = "Voucher";
+$lang["doctypesequences_error_adding_updating"] = "Error adding/updating Document type sequence";
+$lang["doctypesequences_info"] = "Document type sequence Info";
+$lang["doctypesequences_is_cashup"] = "Cashup";
+$lang["doctypesequences_name"] = "Name";
+$lang["doctypesequences_new"] = "New Document type sequence";
+$lang["doctypesequences_next_sequence"] = "Next Sequence";
+$lang["doctypesequences_no_doctypesequences_to_display"] = "No Document type sequence to display";
+$lang["doctypesequences_none_selected"] = "You have not selected any Document type sequence";
+$lang["doctypesequences_number_incremental"] = "Number Incremental";
+$lang["doctypesequences_one_or_multiple"] = "Document type sequence";
+$lang["doctypesequences_prefix"] = "Prefix";
+$lang["doctypesequences_sequence_id"] = "Id";
+$lang["doctypesequences_successful_adding"] = "Document type sequence add successful";
+$lang["doctypesequences_successful_deleted"] = "Document type sequence delete successful";
+$lang["doctypesequences_successful_updating"] = "Document type sequence update successful";
+$lang["doctypesequences_suffix"] = "Suffix";
+$lang["doctypesequences_update"] = "Update Document type sequence";

@@ -1,0 +1,37 @@
+<?php 
+
+$lang["doctypesequence_doctype_required"] = "Tipo de Documento es un campo requerido.";
+$lang["doctypesequence_name_required"] = "Nombre es un campo requerido.";
+$lang["doctypesequence_next_sequence_required"] = "Siguiente secuencia es un campo requerido.";
+$lang["doctypesequence_number_incremental_required"] = "N° de Incremento es un campo requerido.";
+$lang["doctypesequences_cannot_be_deleted"] = "No se pudo eliminar la Secuencia de Tipo de Documento(s)";
+$lang["doctypesequences_confirm_delete"] = "¿Está seguro de que desea eliminar la Secuencia de Tipo de Documento seleccionada?";
+$lang["doctypesequences_confirm_restore"] = "¿Está seguro de que desea restaurar la Secuencia de Tipo de Documento seleccionada?";
+$lang["doctypesequences_doctype"] = "Tipo de Documento";
+$lang["doctypesequences_doctype_adjustnote"] = "Nota de Ajuste";
+$lang["doctypesequences_doctype_cost"] = "Egreso";
+$lang["doctypesequences_doctype_cost_overallcash"] = "Egreso (Caja General)";
+$lang["doctypesequences_doctype_creditnote"] = "Nota de Crédito";
+$lang["doctypesequences_doctype_expense"] = "Gasto";
+$lang["doctypesequences_doctype_income"] = "Ingreso";
+$lang["doctypesequences_doctype_income_overallcash"] = "Ingreso (Caja General)";
+$lang["doctypesequences_doctype_invoice"] = "Factura";
+$lang["doctypesequences_doctype_ticketsale"] = "Boleta de Venta";
+$lang["doctypesequences_doctype_voucher"] = "Vale";
+$lang["doctypesequences_error_adding_updating"] = "Error agregando/actualizando la Secuencia de Tipo de Documento";
+$lang["doctypesequences_info"] = "Información de la Secuencia de Tipo de Documento";
+$lang["doctypesequences_is_cashup"] = "Caja Pagadora";
+$lang["doctypesequences_name"] = "Nombre de Secuencia";
+$lang["doctypesequences_new"] = "Nueva Secuencia";
+$lang["doctypesequences_next_sequence"] = "Siguiente secuencia";
+$lang["doctypesequences_no_doctypesequences_to_display"] = "No hay Secuencia de Tipo de Documento para mostrar";
+$lang["doctypesequences_none_selected"] = "No has seleccionado ninguna Secuencia de Tipo de Documento.";
+$lang["doctypesequences_number_incremental"] = "N° de Incremento";
+$lang["doctypesequences_one_or_multiple"] = "Secuencia de Tipo de Documento";
+$lang["doctypesequences_prefix"] = "Prefijo";
+$lang["doctypesequences_sequence_id"] = "Id";
+$lang["doctypesequences_successful_adding"] = "Secuencia agregada correctamente";
+$lang["doctypesequences_successful_deleted"] = "Secuencia eliminada correctamente";
+$lang["doctypesequences_successful_updating"] = "Secuencia actualizada correctamente";
+$lang["doctypesequences_suffix"] = "Sufijo";
+$lang["doctypesequences_update"] = "Actualizar Secuencia";

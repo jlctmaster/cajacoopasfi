@@ -1,0 +1,32 @@
+<?php 
+
+$lang["adjustnote_amount_required"] = "Amount is a field required";
+$lang["adjustnote_cash_concept_required"] = "Cash concept is a field required";
+$lang["adjustnote_documentdate_required"] = "Document date is a field required.";
+$lang["adjustnote_documentno_required"] = "Document number is a field required.";
+$lang["adjustnote_name_required"] = "Client is a field required.";
+$lang["adjustnote_trx_number_required"] = "Transaction number is a field required.";
+$lang["adjustnotes_adjustnote_id"] = "Id";
+$lang["adjustnotes_amount"] = "Amount";
+$lang["adjustnotes_cash_book_id"] = "Cash Book";
+$lang["adjustnotes_cash_concept_id"] = "Cash Concept";
+$lang["adjustnotes_cannot_be_deleted"] = "Could not delete Adjust note(s)";
+$lang["adjustnotes_confirm_delete"] = "Are you sure you want to delete the selected Adjust note?";
+$lang["adjustnotes_confirm_restore"] = "Are you sure you want to restore the selected Adjust note?";
+$lang["adjustnotes_delete"] = "Delete Adjust note";
+$lang["adjustnotes_description"] = "Description";
+$lang["adjustnotes_documentdate"] = "Document date";
+$lang["adjustnotes_documentno"] = "Document number";
+$lang["adjustnotes_error_adding_updating"] = "Error adding/updating Adjust note";
+$lang["adjustnotes_info"] = "Adjust note Info";
+$lang["adjustnotes_new"] = "New Adjust note";
+$lang["adjustnotes_no_adjustnotes_to_display"] = "No Adjust note to display";
+$lang["adjustnotes_none_selected"] = "You have not selected any Adjust note";
+$lang["adjustnotes_none_to_be_deleted"] = "None to be deleted";
+$lang["adjustnotes_one_or_multiple"] = "Adjust note";
+$lang["adjustnotes_paymentterm"] = "Payment Term";
+$lang["adjustnotes_successful_adding"] = "Adjust note add successful";
+$lang["adjustnotes_successful_deleted"] = "Adjust note delete successful";
+$lang["adjustnotes_successful_updating"] = "Adjust note update successful";
+$lang["adjustnotes_trx_number"] = "Transaction number";
+$lang["adjustnotes_update"] = "Update Adjust note";
