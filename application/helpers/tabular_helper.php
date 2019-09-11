@@ -687,6 +687,105 @@ function get_doctypesequence_data_row($doctypesequence)
 }
 
 /*
+Get the header for the single master tabular view
+*/
+function get_singlemaster_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$headers = array(
+		array('id' => $CI->lang->line('common_id')),
+		array('name' => $CI->lang->line('common_name')),
+	);
+
+	return transform_headers($headers);
+}
+
+/*
+Gets the html data row for the single master
+*/
+function get_singlemaster_data_row($obj)
+{
+	$CI =& get_instance();
+	$controller_name = strtolower(get_class($CI));
+
+	return array (
+		'id' => $obj->id,
+		'name' => $obj->name,
+		'edit' => anchor($controller_name."/view/$obj->id", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+		));
+}
+
+/*
+Get the header for the model tabular view
+*/
+function get_model_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$headers = array(
+		array('model_id' => $CI->lang->line('models_model_id')),
+		array('name' => $CI->lang->line('models_name')),
+		array('type' => $CI->lang->line('models_type')),
+		array('value' => $CI->lang->line('models_value')),
+	);
+
+	return transform_headers($headers);
+}
+
+/*
+Gets the html data row for the model
+*/
+function get_model_data_row($model)
+{
+	$CI =& get_instance();
+	$controller_name = strtolower(get_class($CI));
+
+	return array (
+		'model_id' => $model->model_id,
+		'name' => $model->name,
+		'type' => $model->type,
+		'value' => $model->value,
+		'edit' => anchor($controller_name."/view/$model->model_id", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+		));
+}
+
+/*
+Get the header for the item_type tabular view
+*/
+function get_item_type_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$headers = array(
+		array('item_type_id' => $CI->lang->line('item_types_item_type_id')),
+		array('family' => $CI->lang->line('item_types_family')),
+		array('name' => $CI->lang->line('item_types_name')),
+	);
+
+	return transform_headers($headers);
+}
+
+/*
+Gets the html data row for the item_type
+*/
+function get_item_type_data_row($item_type)
+{
+	$CI =& get_instance();
+	$controller_name = strtolower(get_class($CI));
+
+	return array (
+		'item_type_id' => $item_type->item_type_id,
+		'family' => $item_type->family,
+		'name' => $item_type->name,
+		'edit' => anchor($controller_name."/view/$item_type->item_type_id", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+		));
+}
+
+/*
 Get the header for the uom tabular view
 */
 function get_uom_manage_table_headers()

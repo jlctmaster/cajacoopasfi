@@ -121,6 +121,11 @@
 								'home' => $this->lang->line('module_home'),
 								'cash' => $this->lang->line('module_cash'),
 								'pay_cash' => $this->lang->line('module_pay_cash'),
+								'operation' => $this->lang->line('module_operation'),
+								'hoard' => $this->lang->line('module_hoard'),
+								'commercialization' => $this->lang->line('module_commercialization'),
+								'handling' => $this->lang->line('module_handling'),
+								'operation_config' => $this->lang->line('module_operation_config'),
 								'office' => $this->lang->line('module_office'),
 								'both' => $this->lang->line('module_both')
 							), $module->menu_group, "class='module'"); ?>

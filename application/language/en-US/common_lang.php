@@ -48,6 +48,7 @@ $lang["common_learn_about_project"] = "to learn the latest information about the
 $lang["common_list_of"] = "List of";
 $lang["common_logout"] = "Logout";
 $lang["common_manage"] = "Management of ";
+$lang["common_name"] = "Name";
 $lang["common_new"] = "New";
 $lang["common_no"] = "No";
 $lang["common_no_persons_to_display"] = "There are no people to display.";

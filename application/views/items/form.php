@@ -4,6 +4,19 @@
 
 <?php echo form_open('items/save/'.$item_info->item_id, array('id'=>'item_form', 'enctype'=>'multipart/form-data', 'class'=>'form-horizontal')); ?>
 	<fieldset id="item_basic_info">
+
+		<div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('items_is_bulk'), 'is_bulk', array('class'=>'control-label col-xs-3')); ?>
+			<div class='col-xs-1'>
+				<?php echo form_checkbox(array(
+						'name'=>'is_bulk',
+						'id'=>'is_bulk',
+						'value'=>1,
+						'checked'=>($item_info->is_bulk) ? 1 : 0)
+						);?>
+			</div>
+		</div>
+
 		<div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('items_item_number'), 'item_number', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
@@ -32,7 +45,7 @@
 		</div>
 
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('items_mark'), 'mark', array('class'=>'required control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('items_mark'), 'mark', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<div class="input-group">
 					<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-certificate"></span></span>
@@ -387,18 +400,6 @@
 						'id'=>'is_serialized',
 						'value'=>1,
 						'checked'=>($item_info->is_serialized) ? 1 : 0)
-						);?>
-			</div>
-		</div>
-
-		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('items_is_bulk'), 'is_bulk', array('class'=>'control-label col-xs-3')); ?>
-			<div class='col-xs-1'>
-				<?php echo form_checkbox(array(
-						'name'=>'is_bulk',
-						'id'=>'is_bulk',
-						'value'=>1,
-						'checked'=>($item_info->is_bulk) ? 1 : 0)
 						);?>
 			</div>
 		</div>

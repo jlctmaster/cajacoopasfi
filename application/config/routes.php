@@ -53,6 +53,15 @@ $route['default_controller'] = 'login';
 $route['no_access/([^/]+)'] = 'no_access/index/$1';
 $route['no_access/([^/]+)/([^/]+)'] = 'no_access/index/$1/$2';
 
+//	Submenu
+$route['cash'] = 'submenu/index/cash';
+$route['pay_cash'] = 'submenu/index/pay_cash';
+$route['operation'] = 'submenu/index/operation';
+$route['hoard'] = 'submenu/index/hoard';
+$route['commercialization'] = 'submenu/index/commercialization';
+$route['handling'] = 'submenu/index/handling';
+$route['operation_config'] = 'submenu/index/operation_config';
+
 $route['reports/(summary_:any)/([^/]+)/([^/]+)'] = 'reports/$1/$2/$3/$4';
 $route['reports/summary_expenses_categories'] = 'reports/date_input_only';
 $route['reports/summary_:any'] = 'reports/date_input';
