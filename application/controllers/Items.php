@@ -1056,5 +1056,65 @@ class Items extends Secure_Controller
 			}
 		}
 	}
+        
+        
+        public function convert($id = -1)
+	{
+//		$data['uom_conversion_info'] = $this->Convert_uom->get_info($id);
+//                
+//                
+                $row_uom= array('-1' => $this->lang->line('common_none_selected_text'));
+                
+                $all_row = $this->Uom->get_all()->result_array();
+		//print_r($all_row);exit();
+		for($i = 0;$i <count($all_row);$i++)
+		{
+			$row_uom[$all_row[$i]['uom_id']] = $all_row[$i]['name'];
+		}
+//                //print_r($period);exit();
+//                
+		$data['uom'] = $row_uom;
+                $data['uomto'] = $row_uom;
+//                $data['selected_uom'] = $data['uom_conversion_info']->uom_id;
+//                $data['selected_uom_to'] = $data['uom_conversion_info']->uomto_id;
+		$data['item_id']=$id;
+                
+                $this->load->view("items/form_uom", $data);
+	}
+        
+        public function save_convert($id = -1)
+        {
+             $convert_data = array(               
+			'uom_conversion_id'=>'NULL',
+                        'item_id' => $this->input->post('item_id'),
+			'uom_id'      => $this->input->post('uom'),
+			'uomto_id'   => $this->input->post('uomto'),
+                        'multiplierfactor'=> $this->input->post('multiplierfactor'),
+                        'dividingfactor'=> $this->input->post('dividingfactor')                        
+		); 
+             
+             //print_r($conver_data);exit();
+            if($this->Convert_uom->save($convert_data, $id))
+            {
+                $convert_data = $this->xss_clean($convert_data);
+
+                // New id
+                if($id == -1)
+                {
+                        echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('convert_uom_successful_adding'), 'id' => $convert_data['uom_conversion_id']));
+                }
+                else // Existing Model
+                {
+                        echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('convert_uom_successful_updating'), 'id' => $id));
+                }
+            }
+            else//failure
+            {
+                echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('convert_uom_error_adding_updating') . ' ' . $convert_data['uom_conversion_id'], 'id' => -1));
+            }
+            
+            
+            
+        }
 }
 ?>

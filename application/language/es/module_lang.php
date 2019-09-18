@@ -89,3 +89,7 @@ $lang["module_voucher_operations"] = "Comprobante de Operaciones";
 $lang["module_voucher_operations_desc"] = "Agregar, Actualizar, Borrar, Importar y Buscar Comprobante de Operaciones.";
 $lang["module_vouchers"] = "Vales";
 $lang["module_vouchers_desc"] = "Agregar, Actualizar, Borrar y Buscar Vales.";
+$lang["module_fees_deposit"] = "Cuotas de Deposito";
+$lang["module_fees_deposit_desc"] = "Agregar, Cuotas de Deposito";
+$lang["module_delivery_documents"] = "Documento de Entrega";
+$lang["module_delivery_documents_desc"] = "Agregar, Documento de Entrega";

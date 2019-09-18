@@ -147,7 +147,7 @@ class Period extends CI_Model
 
 		$this->db->from('periods');
 		$this->db->group_start();
-			$this->db->like('name', $search);
+		$this->db->like('name', $search);
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
 
@@ -184,8 +184,8 @@ class Period extends CI_Model
 		$this->db->from('periods');
 		$this->db->where('deleted', 0);
 		$this->db->group_start();
-			$this->db->like('name', $search);
-			$this->db->group_end();
+		$this->db->like('name', $search);
+		$this->db->group_end();
 		$this->db->order_by('name', 'asc');
 
 		foreach($this->db->get()->result() as $row)
@@ -196,7 +196,7 @@ class Period extends CI_Model
 		//only return $limit suggestions
 		if(count($suggestions) > $limit)
 		{
-			$suggestions = array_slice($suggestions, 0, $limit);
+                    $suggestions = array_slice($suggestions, 0, $limit);
 		}
 
 		return $suggestions;

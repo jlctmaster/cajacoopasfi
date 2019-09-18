@@ -717,6 +717,50 @@ function get_singlemaster_data_row($obj)
 		));
 }
 
+
+/*
+Get the header for the model tabular view
+*/
+function get_delivery_document_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$headers = array(
+		array('model_id' => $CI->lang->line('models_model_id')),
+		array('name' => $CI->lang->line('models_name')),
+		array('type' => $CI->lang->line('models_type')),
+		array('value' => $CI->lang->line('models_value')),
+	);
+
+	return transform_headers($headers);
+}
+
+/*
+Gets the html data row for the model
+*/
+function get_delivery_document_data_row($model)
+{
+	$CI =& get_instance();
+	$controller_name = strtolower(get_class($CI));
+
+	return array (
+		'id_delivery_document' => $model->id_delivery_document,
+		'code' => $model->code,
+		'supplier_id' => $model->supplier_id,
+		'status' => $model->status,
+                'created' => $model->created,
+                'created_by' => $model->created_by,
+                'updated' => $model->updated,
+                'updated_by' => $model->update_by,
+                'tasting_profile_rate'=> $model->tasting_profile_rate,
+                'tasting_observation'=> $model->tasting_observation,
+                'period'=> $model->period,
+                'edit' => anchor($controller_name."/view/$model->id_delivery_document", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+		));
+}
+
+
 /*
 Get the header for the model tabular view
 */
@@ -788,6 +832,57 @@ function get_item_type_data_row($item_type)
 /*
 Get the header for the uom tabular view
 */
+function get_fees_deposit_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$headers = array(
+		array('id_fee_deposit' => $CI->lang->line('fee_deposit_id_fee_deposit')),
+                array('created' => $CI->lang->line('fee_deposit_created')),
+                array('updated' => $CI->lang->line('fee_deposit_updated')),
+		array('supplier_id' => $CI->lang->line('fee_deposit_supplier_id')),
+		array('period' => $CI->lang->line('fee_deposit_period')),
+		array('fee_kilos' => $CI->lang->line('fee_deposit_fee_kilos')),
+                array('fee_qqs' => $CI->lang->line('fee_deposit_fee_qqs')),
+                array('input_kilos' => $CI->lang->line('fee_deposit_input_kilos')),
+                array('input_qqs' => $CI->lang->line('fee_deposit_input_qqs')),
+                
+                array('output_kilos' => $CI->lang->line('fee_deposit_output_kilos')),
+                array('output_qqs' => $CI->lang->line('fee_deposit_output_qqs'))
+	);
+
+	return transform_headers($headers);
+}
+/*
+Gets the html data row for the uom
+*/
+function get_fees_deposit_data_row($fees)
+{
+	$CI =& get_instance();
+	$controller_name = strtolower(get_class($CI));
+
+	return array (
+		'id_fee_deposit' => $fees->id_fee_deposit,
+		'created' => $fees->created,
+		'updated' => $fees->updated,
+		'supplier_id' => $fees->supplier_id,
+                'period'=> $fees->period,
+                'fee_kilos'=>$fees->fee_kilos,
+                'fee_qqs'=>$fees->fee_qqs,
+                'input_kilos'=>$fees->input_kilos,
+                'input_qqs'=>$fees->input_qqs,
+                'output'=>$fees->output_kilos,
+                'output'=>$fees->output_qqs,
+		'edit' => anchor($controller_name."/view/$fees->id_fee_deposit", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+		));
+}
+
+
+
+/*
+Get the header for the uom tabular view
+*/
 function get_uom_manage_table_headers()
 {
 	$CI =& get_instance();
@@ -801,6 +896,7 @@ function get_uom_manage_table_headers()
 
 	return transform_headers($headers);
 }
+
 
 /*
 Gets the html data row for the uom
@@ -1967,7 +2063,8 @@ function get_items_manage_table_headers()
 		array('tax_percents' => $CI->lang->line('items_tax_percents'), 'sortable' => FALSE),
 		array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE),
 		array('inventory' => ''),
-		array('stock' => '')
+		array('stock' => ''),
+                array('convert' => '')
 	);
 
 	return transform_headers($headers);
@@ -2032,6 +2129,9 @@ function get_item_data_row($item)
 		),
 		'stock' => anchor($controller_name."/count_details/$item->item_id", '<span class="glyphicon glyphicon-list-alt"></span>',
 			array('class' => 'modal-dlg', 'title' => $CI->lang->line($controller_name.'_details_count'))
+		),
+                'convert' => anchor($controller_name."/convert/$item->item_id", '<span class="glyphicon glyphicon-random"></span>',
+			array('class' => 'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title' => $CI->lang->line('convert_uom_new'))
 		),
 		'edit' => anchor($controller_name."/view/$item->item_id", '<span class="glyphicon glyphicon-edit"></span>',
 			array('class' => 'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title' => $CI->lang->line($controller_name.'_update'))

@@ -171,4 +171,8 @@ $autoload['model'] = array(
 	'Invoice',
 	'Adjustnote',
 	'Creditnote',
-	'Stock_location');
+	'Stock_location',
+        'Delivery_document',
+        'Fee_deposit',
+        'Convert_uom'
+    );

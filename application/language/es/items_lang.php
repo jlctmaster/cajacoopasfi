@@ -112,3 +112,27 @@ $lang["items_uom_required"] = "Unidad de Medida es requerido.";
 $lang["items_upc_database"] = "Base de datos UPC";
 $lang["items_update"] = "Actualizar Artículo";
 $lang["items_use_inventory_menu"] = "Usar Menú de Inventario";
+
+
+//convert-uom
+$lang["convert_uom_uomto_required"] = "Se requiere la unidad de medida a convertir";
+$lang["convert_uom_uom_required"] = "Se requiere la Unidad de Medida Base";
+$lang["convert_uom_item_required"] = "Se requiere el Valor del Item";
+$lang["convert_uom_cannot_be_deleted"] = "No se pudo eliminar la Conversion";
+$lang["convert_uom_uom_conversion_id"] = "Id";
+$lang["convert_uom_confirm_delete"] = "¿Está seguro de que desea eliminar la Conversion seleccionada?";
+$lang["convert_uom_confirm_restore"] = "¿Está seguro de que desea restaurar la Conversion seleccionada?";
+$lang["convert_uom_error_adding_updating"] = "Error al agregar/actualizar Conversion";
+$lang["convert_uom_info"] = "Información de la Conversion de Unidad de Medida";
+$lang["convert_uom_item"] = "Nombre";
+$lang["convert_uom_uom"] = "Unidad de Medida";
+$lang["convert_uom_uomto"] = "Unidad a Convertir";
+$lang["convert_uom_new"] = "Nueva Conversion de Unidad";
+$lang["convert_uom_no_convert_uom_to_display"] = "No hay Conversiones para mostrar";
+$lang["convert_uom_one_or_multiple"] = "Conversion";
+$lang["convert_uom_successful_adding"] = "Conversion agregado exitosamente";
+$lang["convert_uom_successful_deleted"] = "Conversion eliminado exitosamente";
+$lang["convert_uom_successful_updating"] = "Convesion actualizado exitosamente";
+$lang["convert_uom_update"] = "Actualizar Modelo";
+$lang["convert_uom_factor_mult"] = "Factor Multiplicador";
+$lang["convert_uom_factor_div"] = "Factor Divisor";
