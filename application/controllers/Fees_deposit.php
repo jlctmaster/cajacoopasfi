@@ -40,8 +40,11 @@ class Fees_deposit extends Secure_Controller
 		$order  = $this->input->get('order');
 
 		$models = $this->Fee_deposit->search($search, $limit, $offset, $sort, $order);
-		$total_rows = $this->Fee_deposit->get_found_rows($search);
-                print_r($models);exit();
+		
+                //$models = $this->Fee_deposit->get_all();
+                //$total_rows = $moddel->
+                $total_rows = $this->Fee_deposit->get_found_rows($search);
+                //print_r($models);exit();
 		$data_rows = array();
 		foreach($models->result() as $model)
 		{
@@ -70,10 +73,19 @@ class Fees_deposit extends Secure_Controller
 		{
 			$period[$all_row[$i]['id']] = $all_row[$i]['name'];
 		}
-                //print_r($period);exit();
+                //print_r($data);exit();
                 
 		$data['period'] = $period;
                 $data['selected_period'] = $data['fee_deposit_info']->period;
+                
+                $locations = array('-1' => $this->lang->line('common_none_selected_text'));
+                $all_row = $this->Stock_location->get_all()->result_array();
+                for($i = 0;$i <count($all_row);$i++)
+		{
+			$locations[$all_row[$i]['location_id']] = $all_row[$i]['location_name'];
+		}
+                $data['locations'] = $locations;
+                $data['selected_location']= $data['fee_deposit_info']->location_id;
                 
 		$this->load->view("fees_deposit/form", $data);
 	}
@@ -90,7 +102,8 @@ class Fees_deposit extends Secure_Controller
                         'input_kilos' => '0',
                         'input_qqs'   => '0',
                         'output_kilos'=> '0',
-                        'output_qqs'  => '0'
+                        'output_qqs'  => '0',
+                        'location_id' => $this->input->post('location')
 		);
                 
                 //print_r($model_data);exit();

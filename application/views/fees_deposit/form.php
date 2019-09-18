@@ -11,16 +11,23 @@
 						'name'=>'supplier',
 						'id'=>'supplier',
 						'class'=>'form-control input-sm',
-						'value'=>$fees_deposit_info->name)
+						'value'=>$fee_deposit_info->supplier_id)
 						);?>
                                                
 			</div>
 		</div>
-
-		<div class="form-group form-group-sm">
+                
+                <div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('fees_deposit_location'), 'location', array('class'=>'required control-label col-xs-3')); ?>
+			<div class='col-xs-8'>
+				<?php echo form_dropdown('location', $locations, $selected_location, array('class'=>'form-control', 'id' => 'location_id')); ?>
+			</div>
+		</div>
+		
+                <div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('fees_deposit_period'), 'period', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
-				<?php echo form_dropdown('period', $period, $selected_period, array('class'=>'form-control', 'id' => 'user_id')); ?>
+				<?php echo form_dropdown('period', $period, $selected_period, array('class'=>'form-control', 'id' => 'period_id')); ?>
 			</div>
 		</div>
 
@@ -33,7 +40,7 @@
 						'class'=>'form-control input-sm',
 						'type' => 'number',
 						'step' => 1,
-						'value'=>$fees_deposit_info->fee_kilos)
+						'value'=>$fee_deposit_info->fee_kilos)
 						);?>
 			</div>
 		</div>
@@ -47,7 +54,7 @@
 						'class'=>'form-control input-sm',
 						'type' => 'number',
 						'step' => 1,
-						'value'=>$fees_deposit_info->fee_qqs)
+						'value'=>$fee_deposit_info->fee_qqs)
 						);?>
 			</div>
 		</div>

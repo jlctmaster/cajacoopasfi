@@ -33,7 +33,7 @@ class Fee_deposit extends CI_Model
 	public function get_all($limit = 10000, $offset = 0)
 	{
 		$this->db->from('fee_deposit');
-		$this->db->order_by('name', 'asc');
+		$this->db->order_by('supplier_id', 'asc');
 		$this->db->limit($limit);
 		$this->db->offset($offset);
 
@@ -173,13 +173,16 @@ class Fee_deposit extends CI_Model
 		{
 			$this->db->select('COUNT(id_fee_deposit) as count');
 		}
-
-		$this->db->from('fee_deposit');
+                
+                $this->db->select('fee.*,people.*,periods.name');
+		$this->db->from('fee_deposit AS fee');
+                $this->db->join('people AS people', 'fee.supplier_id = people.person_id');
+                $this->db->join('periods AS periods', 'fee.period = periods.id');
 		$this->db->group_start();
 		$this->db->like('supplier_id', $search);
 		$this->db->or_like('period', $search);
 		$this->db->group_end();
-		$this->db->where('deleted', 0);
+		$this->db->where('fee.deleted', 0);
 
 		// get_found_rows case
 		if($count_only == TRUE)
@@ -193,8 +196,10 @@ class Fee_deposit extends CI_Model
 		{
 			$this->db->limit($rows, $limit_from);
 		}
-
-		return $this->db->get();
+                $res = $this->db->get();
+                ///print_r($this->db->error());
+                
+		return $res;
 	}
 
 	/**

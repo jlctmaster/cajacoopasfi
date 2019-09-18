@@ -19,3 +19,4 @@ $lang["fees_deposit_successful_adding"] = "Cuota de Deposito agregado exitosamen
 $lang["fees_deposit_successful_deleted"] = "Cuota de Deposito eliminada exitosamente";
 $lang["fees_deposit_successful_updating"] = "Cuota de Deposito actualizada exitosamente";
 $lang["fees_deposit_update"] = "Actualizar Cuota de Deposito";
+$lang["fees_deposit_location"]= "Deposito";
