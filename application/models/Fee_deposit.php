@@ -103,7 +103,7 @@ class Fee_deposit extends CI_Model
 		$this->db->order_by('people.last_name', 'asc');
 		foreach($this->db->get()->result() as $row)
 		{
-			$suggestions[] = array('value' => $row->person_id, 'label' => $row->first_name . ' ' . $row->last_name);
+			$suggestions[] = array('value' => array('id'=>$row->person_id,'nombre'=>$row->first_name . ' ' . $row->last_name) , 'label' => $row->first_name . ' ' . $row->last_name);
 		}
                 
                
@@ -174,32 +174,37 @@ class Fee_deposit extends CI_Model
 			$this->db->select('COUNT(id_fee_deposit) as count');
 		}
                 
-                $this->db->select('fee.*,people.*,periods.name');
-		$this->db->from('fee_deposit AS fee');
-                $this->db->join('people AS people', 'fee.supplier_id = people.person_id');
-                $this->db->join('periods AS periods', 'fee.period = periods.id');
-		$this->db->group_start();
-		$this->db->like('supplier_id', $search);
-		$this->db->or_like('period', $search);
-		$this->db->group_end();
-		$this->db->where('fee.deleted', 0);
+                        $this->db->select('fee.*,people.*,periods.name,loc.location_name as deposito,items.name as articulo,types.name as types');
+			$this->db->from('fee_deposit AS fee');
+                        $this->db->join('people AS people', 'fee.supplier_id = people.person_id');
+                        $this->db->join('periods AS periods', 'fee.period = periods.id');
+			$this->db->join('stock_locations AS loc', 'fee.location_id = loc.location_id');
+                        $this->db->join('items AS items', 'items.item_id = fee.item_id');
+                        $this->db->join('item_types AS types', 'types.item_type_id = fee.type_item_id');
+			$this->db->group_start();
+			$this->db->like('fee.supplier_id', $search);
+			$this->db->or_like('fee.period', $search);
+			$this->db->or_like('fee.location_id', $search);
+                        $this->db->or_like('fee.item_id', $search);
+			$this->db->group_end();
+			$this->db->where('fee.deleted', 0);
 
-		// get_found_rows case
-		if($count_only == TRUE)
-		{
-			return $this->db->get()->row()->count;
-		}
+			// get_found_rows case
+			if($count_only == TRUE)
+			{
+				return $this->db->get()->row()->count;
+			}
 
-		$this->db->order_by($sort, $order);
+			$this->db->order_by($sort, $order);
 
-		if($rows > 0)
-		{
-			$this->db->limit($rows, $limit_from);
-		}
-                $res = $this->db->get();
-                ///print_r($this->db->error());
-                
-		return $res;
+			if($rows > 0)
+			{
+				$this->db->limit($rows, $limit_from);
+			}
+			$res = $this->db->get();
+			//print_r($this->db->error());
+					
+			return $res;
 	}
 
 	/**
@@ -219,9 +224,9 @@ class Fee_deposit extends CI_Model
 		$this->db->from('models');
 		$this->db->where('deleted', 0);
 		$this->db->group_start();
-			$this->db->like('name', $search);
-			$this->db->or_like('type', $search);
-			$this->db->group_end();
+		$this->db->like('name', $search);
+		$this->db->or_like('type', $search);
+		$this->db->group_end();
 		$this->db->order_by('name', 'asc');
 
 		foreach($this->db->get()->result() as $row)
@@ -263,9 +268,9 @@ class Fee_deposit extends CI_Model
 	 */
 	public function delete_list($model_ids)
 	{
-		$this->db->where_in('model_id', $model_ids);
+		$this->db->where_in('id_fee_deposit', $model_ids);
 
-		return $this->db->update('models', array('deleted' => 1));
+		return $this->db->update('fee_deposit', array('deleted' => 1));
  	}
 }
 ?>

@@ -9,7 +9,7 @@ $(document).ready(function()
 		resource: '<?php echo site_url($controller_name."/search");?>',
 		headers: <?php echo $table_headers; ?>,
 		pageSize: <?php echo $this->config->item('lines_per_page'); ?>,
-		uniqueId: 'model_id',
+		uniqueId: 'id_fee_deposit',
 		
 	});
 
@@ -30,7 +30,7 @@ $(document).ready(function()
 
 <div id="toolbar">
 	<div class="pull-left form-inline" role="toolbar">
-		<button id="delete" class="btn btn-default btn-sm print_hide">
+		<button id="delete" class="btn btn-default btn-sm print_hide"   >
 			<span class="glyphicon glyphicon-trash">&nbsp</span><?php echo $this->lang->line("common_delete");?>
 		</button>
 	</div>

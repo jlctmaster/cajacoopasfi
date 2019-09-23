@@ -1,22 +1,10 @@
+<div class="col-lg-12 col-md-6">
 <div id="required_fields_message"><?php echo $this->lang->line('common_fields_required_message'); ?></div>
 
 <ul id="error_message_box" class="error_message_box"></ul>
 
 <?php echo form_open($controller_name.'/save/'.$delivery_document_info->id_delivery_document, array('id'=>'delivary_document_edit_form', 'class'=>'form-horizontal')); ?>
-	<fieldset id="delivery_document">
-                <div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('delivery_document_code'), 'code', array('class'=>'required control-label col-xs-3')); ?>
-			<div class='col-xs-8'>
-				<?php echo form_input(array(
-						'name'=>'code',
-						'id'=>'code',
-						'class'=>'form-control input-sm',
-						'value'=>$delivery_document_info->code)
-						);?>
-			</div>
-		</div>
-		
-                <div class="form-group form-group-sm">
+<div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('delivery_document_supplier'), 'supplier', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array(
@@ -26,28 +14,56 @@
 						'value'=>$delivery_document_info->id_supplier)
 						);?>
 			</div>
-		</div>
-                
-                <div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('delivery_document_fee_deposit'), 'fee_deposikt', array('class'=>'required control-label col-xs-3')); ?>
+
+</div>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Acopio</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Certificado</a>
+	</li>
+	
+</ul>
+
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+	<fieldset id="delivery_document">
+		<br>
+        <div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('delivery_document_item'), 'item', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
-				<?php echo form_dropdown('id_fee_deposit',$fee_deposit,$selected_fee, array('class'=>'form-control', 'id' => 'fee_deposit')); ?>
-			</div>
-		</div>
-            
-                <div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('delivery_document_period'), 'id', array('class'=>'required control-label col-xs-3')); ?>
-			<div class='col-xs-8'>
-				<?php echo form_dropdown('id',$period,$selected_period, array('class'=>'form-control', 'id' => 'period_id')); ?>
+				<?php echo form_input(array(
+						'name'=>'item',
+						'id'=>'item',
+						'class'=>'form-control input-sm',
+						'value'=>$delivery_document_info->item)
+						);?>
 			</div>
 		</div>
 		
+                           
+        <div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('delivery_document_fee_deposit'), 'fee_deposit', array('class'=>'required control-label col-xs-3')); ?>
+			<div class='col-xs-8'>
+				<?php echo form_dropdown('id_fee_deposit',$fee_deposit,$selected_fee, array('class'=>'form-control input-sm', 'id' => 'fee_deposit')); ?>
+			</div>
+		</div>
+            
+       
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('delivery_document_tasting_profile'), 'tasting_profile', array('class'=>'required control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('delivery_document_uom_item'), 'certifier', array('class'=>'required control-label col-xs-3')); ?>
+			<div class='col-xs-8'>
+				<?php echo form_dropdown('uom_input',$uom_item,$selected, array('class'=>'form-control input-sm', 'id' => 'uom_item')); ?>
+			</div>
+		</div>
+		<div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('delivery_document_amount'), 'amount', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array(
-						'name'=>'tasting',
-						'id'=>'tasting',
+						'name'=>'amount',
+						'id'=>'amount',
 						'class'=>'form-control input-sm',
 						'value'=>$delivery_document_info->tasting_profile_rate)
 						);?>
@@ -55,12 +71,46 @@
 		</div>
 		
 	</fieldset>
+ 
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+		<fieldset id="certificadora">
+		 
+			<div class="form-group form-group-sm">
+				<?php echo form_label($this->lang->line('delivery_document_certifier'), 'certifier', array('class'=>'required control-label col-xs-3')); ?>
+				<div class='col-xs-8'>
+					<?php echo form_dropdown('certifier_id',$certifier,$selected_certifier, array('class'=>'form-control input-sm', 'id' => 'period_id')); ?>
+				</div>
+			</div>
+		 
+			<div class="form-group form-group-sm">
+				<?php echo form_label($this->lang->line('delivery_document_certifier'), 'certifier', array('class'=>'required control-label col-xs-3')); ?>
+				<div class='col-xs-8'>
+					<?php echo form_dropdown('certifier_id',$certifier,$selected_certifier, array('class'=>'form-control input-sm', 'id' => 'period_id')); ?>
+				</div>
+			</div>
+  
+		
+		</fieldset>			
+  </div>
+  
+</div>	
+	
+</div>	
+	
 <?php echo form_close(); ?>
-
+</div>
 <script type='text/javascript'>
 //validation and submit handling
 $(document).ready(function()
 {
+
+	$('#myTab a').on('click', function (e) {
+	e.preventDefault()
+	$(this).tab('show')});
+
+}
+
+
 
 //	$("#period").autocomplete({
 //		source: "<?php echo site_url('Periods/suggest_period/');?>",
@@ -83,7 +133,7 @@ $(document).ready(function()
 //	});        
         
         
-	$('#delivary_document_edit_form').validate($.extend({
+	$('#delivery_document_edit_form').validate($.extend({
 		submitHandler: function(form) {
 			$(form).ajaxSubmit({
 				success: function(response)

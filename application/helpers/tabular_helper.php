@@ -837,18 +837,15 @@ function get_fees_deposit_manage_table_headers()
 	$CI =& get_instance();
 
 	$headers = array(
-		array('id_fee_deposit' => $CI->lang->line('fee_deposit_id_fee_deposit')),
-                array('created' => $CI->lang->line('fee_deposit_created')),
-      
-		array('supplier_id' => $CI->lang->line('fee_deposit_supplier_id')),
-		array('period' => $CI->lang->line('fee_deposit_period')),
-		array('fee_kilos' => $CI->lang->line('fee_deposit_fee_kilos')),
-                array('fee_qqs' => $CI->lang->line('fee_deposit_fee_qqs')),
-                array('input_kilos' => $CI->lang->line('fee_deposit_input_kilos')),
-                array('input_qqs' => $CI->lang->line('fee_deposit_input_qqs')),
-                
-                array('output_kilos' => $CI->lang->line('fee_deposit_output_kilos')),
-                array('output_qqs' => $CI->lang->line('fee_deposit_output_qqs'))
+                array('created' => $CI->lang->line('fees_deposit_created')),
+		array('supplier_id' => $CI->lang->line('fees_deposit_supplier')),
+		array('period' => $CI->lang->line('fees_deposit_period')),
+		array('location' => $CI->lang->line('fees_deposit_location')),
+                array('type_item' => $CI->lang->line('fees_deposit_type_item')),
+		array('item' => $CI->lang->line('fees_deposit_item')),
+		array('fee_deposit' => $CI->lang->line('fees_deposit_fee_deposit')),
+		array('input' => $CI->lang->line('fees_deposit_input')),
+		array('output' => $CI->lang->line('fees_deposit_output'))		
 	);
 
 	return transform_headers($headers);
@@ -860,37 +857,22 @@ function get_fees_deposit_data_row($fees)
 {
 	$CI =& get_instance();
 	$controller_name = strtolower(get_class($CI));
-        if($fees->input_kilos < $fees->fee_kilos )
-        {
+        
             return array (
-		'id_fee_deposit' => $fees->id_fee_deposit,
+		
 		'created' => date('d-m-Y',strtotime($fees->created)),
 		'supplier_id' => $fees->first_name.' '.$fees->last_name,
                 'period'=> $fees->name,
-                'fee_kilos'=>$fees->fee_kilos,
-                'fee_qqs'=>$fees->fee_qqs,
-                'input_kilos'=>$fees->input_kilos,
-                'input_qqs'=>$fees->input_qqs,
-                'output'=>$fees->output_kilos,
-                'output'=>$fees->output_qqs,
+                'location' => $fees->deposito,
+                'type_item'=>$fees->types,
+                'item'=>$fees->articulo,
+                'fee_deposit'=>$fees->fee_deposit,
+                'input'=>$fees->input,
+                'output'=>$fees->output,
 		'edit' => anchor($controller_name."/view/$fees->id_fee_deposit", '<span class="glyphicon glyphicon-edit"></span>',
 			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
 		));
-        }else
-        {
-            return array (
-		'id_fee_deposit' => $fees->id_fee_deposit,
-		'created' => date('d-m-Y',strtotime($fees->created)),
-		'supplier_id' => $fees->first_name.' '.$fees->last_name,
-                'period'=> $fees->name,
-                'fee_kilos'=>$fees->fee_kilos,
-                'fee_qqs'=>$fees->fee_qqs,
-                'input_kilos'=>$fees->input_kilos,
-                'input_qqs'=>$fees->input_qqs,
-                'output'=>$fees->output_kilos,
-                'output'=>$fees->output_qqs
-		);
-        }
+        
 	
 }
 

@@ -2,8 +2,16 @@
 
 $lang["fees_deposit_supplier"] = "Socio / Proveedor";
 $lang["fees_deposit_period"] = "Periodo";
-$lang["fees_deposit_fee_kilos"] = "Cuota en Kilos";
-$lang["fees_deposit_fee_qqs"] = "Cuota en Quintales";
+$lang["fees_deposit_fee_deposit"] = "Cuota ";
+$lang["fees_deposit_input"] = "Entrada";
+$lang["fees_deposit_output"] = "Salida";
+$lang["fees_deposit_fee_item"] = "Articulo";
+$lang["fees_deposit_type_item"] = "Tipo Articulo";
+$lang["fees_deposit_item"] = "Articulo";
+$lang["fees_deposit_type_item"] = "Tipo Articulo";
+$lang["fees_deposit_created"] = "Creado";
+
+
 
 $lang["fees_deposit_cannot_be_deleted"] = "No se pudo eliminar La Cuota)";
 $lang["fees_deposit_id_fee_deposit"] = "Id";

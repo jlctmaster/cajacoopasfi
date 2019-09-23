@@ -9,13 +9,16 @@ $lang["delivery_document_confirm_delete"] = "¿Está seguro de que desea elimina
 $lang["delivery_document_confirm_restore"] = "¿Está seguro de que desea restaurar el Modelo seleccionada?";
 $lang["delivery_document_error_adding_updating"] = "Error al agregar/actualizar el Modelo";
 $lang["delivery_document_tasting_observation"] = "Información de la Cata";
-$lang["delivery_document_supplier"] = "Socio / Proveedor";
-$lang["delivery_document_period"] = "Periodo";
+
+$lang["delivery_document_supplier"] = "Socio/Proveedor";
+$lang["delivery_document_item"] = "Producto";
 $lang["delivery_document_fee_deposit"] = "Cuota Deposito";
 $lang["delivery_document_tasting_profile"] = "Perfil de Cata";
-$lang["delivery_document_code"] = "Codigo";
+$lang["delivery_document_certifier"] = "Certificadora";
+$lang["delivery_document_uom_item"] = "Unidad de Recepcion";
+$lang["delivery_document_amount"] = "Cantidad Recepcionada";
 
-$lang["delivery_document_new"] = "Nuevo Documento de Entrega";
+$lang["delivery_documents_new"] = "Nuevo Documento de Entrega";
 $lang["delivery_document_no_delivery_document_to_display"] = "No hay Documentos para mostrar";
 $lang["models_one_or_multiple"] = "Modelo";
 $lang["delivery_document_successful_adding"] = "Documento agregado exitosamente";

@@ -11,9 +11,11 @@ class Fees_deposit extends Secure_Controller
 
 	public function index()
 	{
-		 $data['table_headers'] = $this->xss_clean(get_fees_deposit_manage_table_headers());
-                
-		 $this->load->view('fees_deposit/manage', $data);
+		
+		$data['table_headers'] = $this->xss_clean(get_fees_deposit_manage_table_headers());
+         
+		//print_r($data);exit();		 
+		$this->load->view('fees_deposit/manage', $data);
 	}
 
 	/*
@@ -38,13 +40,13 @@ class Fees_deposit extends Secure_Controller
 		$offset = $this->input->get('offset');
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
-
-		$models = $this->Fee_deposit->search($search, $limit, $offset, $sort, $order);
 		
-                //$models = $this->Fee_deposit->get_all();
-                //$total_rows = $moddel->
-                $total_rows = $this->Fee_deposit->get_found_rows($search);
-                //print_r($models);exit();
+				
+		$models = $this->Fee_deposit->search($search, $limit, $offset, $sort, $order);
+		//print_r($models);exit();
+		
+		$total_rows = $this->Fee_deposit->get_found_rows($search);
+		//print_r($models);exit();
 		$data_rows = array();
 		foreach($models->result() as $model)
 		{
@@ -63,47 +65,73 @@ class Fees_deposit extends Secure_Controller
 
 	public function view($id = -1)
 	{
-		$data['fee_deposit_info'] = $this->Fee_deposit->get_info($id);
+            $data['fee_deposit_info'] = $this->Fee_deposit->get_info($id);
                 
-                
-                $period = array('-1' => $this->lang->line('common_none_selected_text'));
-                $all_row = $this->Period->get_all()->result_array();
-		//print_r($all_row);exit();
-		for($i = 0;$i <count($all_row);$i++)
-		{
-			$period[$all_row[$i]['id']] = $all_row[$i]['name'];
-		}
-                //print_r($data);exit();
-                
-		$data['period'] = $period;
-                $data['selected_period'] = $data['fee_deposit_info']->period;
-                
-                $locations = array('-1' => $this->lang->line('common_none_selected_text'));
-                $all_row = $this->Stock_location->get_all()->result_array();
-                for($i = 0;$i <count($all_row);$i++)
-		{
-			$locations[$all_row[$i]['location_id']] = $all_row[$i]['location_name'];
-		}
-                $data['locations'] = $locations;
-                $data['selected_location']= $data['fee_deposit_info']->location_id;
-                
-		$this->load->view("fees_deposit/form", $data);
+            //periods    
+            $period = array('-1' => $this->lang->line('common_none_selected_text'));
+            $all_row = $this->Period->get_all()->result_array();
+            //print_r($all_row);exit();
+            for($i = 0;$i <count($all_row);$i++)
+            {
+                    $period[$all_row[$i]['id']] = $all_row[$i]['name'];
+            }
+                            //print_r($data);exit();
+
+            $data['period'] = $period;
+            $data['selected_period'] = $data['fee_deposit_info']->period;
+
+            //doposit
+            $locations = array('-1' => $this->lang->line('common_none_selected_text'));
+            $all_row = $this->Stock_location->get_all()->result_array();
+            for($i = 0;$i <count($all_row);$i++)
+            {
+                    $locations[$all_row[$i]['location_id']] = $all_row[$i]['location_name'];
+            }
+            $data['locations'] = $locations;
+            $data['selected_location']= $data['fee_deposit_info']->location_id;
+
+
+            $type_item = array('-1' => $this->lang->line('common_none_selected_text'));
+            $all_row = $this->Item_type->get_all()->result_array();			
+            //print_r($all_row);exit();			
+            for($i = 0;$i <count($all_row);$i++)
+            {
+                    $type_item[$all_row[$i]['item_type_id']] = $all_row[$i]['name'];
+            }			
+            $data['item_type'] = $type_item;
+            $data['selected_item_type']= $data['fee_deposit_info']->type_item_id;
+
+            $item = array('-1' => $this->lang->line('common_none_selected_text'));
+            $all_row = $this->Item->get_all()->result_array();
+
+            //print_r($all_row);exit();
+
+            for($i = 0;$i <count($all_row);$i++)
+            {
+                    $item[$all_row[$i]['item_id']] = $all_row[$i]['name'];
+            }			
+            $data['item'] = $item;
+            $data['selected_item'] = $data['fee_deposit_info']->item_id;
+
+            $this->load->view("fees_deposit/form", $data);
 	}
 
 	public function save($model_id = -1)
 	{
-		$model_data = array(
+		//print_r($_POST);exit();
+                $model_data = array(
                         
-			'supplier_id' => $this->input->post('supplier'),
+			'supplier_id' => $this->input->post('supplier_id'),
 			'period'      => $this->input->post('period'),
-			'fee_kilos'   => $this->input->post('fee_kilos'),
-                        'fee_qqs'     => $this->input->post('fee_qqs'),
+			'item_id'   => $this->input->post('item_id'),
+                        'type_item_id'     => $this->input->post('type_item_id'),
                         'created'     => date('Y-m-d H:i:s'),
-                        'input_kilos' => '0',
-                        'input_qqs'   => '0',
-                        'output_kilos'=> '0',
-                        'output_qqs'  => '0',
-                        'location_id' => $this->input->post('location')
+                        'input' => '0',
+                        'fee_deposit'=> $this->input->post('fee_deposit'),
+                        'output'=> '0',
+                        'status'=>'1',
+                        'location_id' => $this->input->post('location'),
+                        'delete'=>'0'
 		);
                 
                 //print_r($model_data);exit();
@@ -129,11 +157,12 @@ class Fees_deposit extends Secure_Controller
 
 	public function delete()
 	{
+                print_r($_POST);exit();
 		$model_to_delete = $this->input->post('ids');
 
-		if($this->Model->delete_list($model_to_delete))
+		if($this->Fee_deposit->delete_list($model_to_delete))
 		{
-			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('models_successful_deleted') . ' ' . count($model_to_delete) . ' ' . $this->lang->line('models_one_or_multiple')));
+			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('fees_deposit_successful_deleted') . ' ' . count($model_to_delete) . ' ' . $this->lang->line('fees_deposit_one_or_multiple')));
 		}
 		else
 		{

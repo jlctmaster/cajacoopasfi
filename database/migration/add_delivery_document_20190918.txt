@@ -1,0 +1,19 @@
+CREATE TABLE `iom_delivery_document` (
+	`id_delivery_document` INT(11) NOT NULL AUTO_INCREMENT,
+	`code` VARCHAR(10) NOT NULL,
+	`supplier_id` INT(11) NOT NULL,
+	`status` INT(11) NOT NULL COMMENT '1 - Registrado\\n2 - Catado\\n3 - Pagado\\n4 - Anulado',
+	`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`created_by` VARCHAR(50) NOT NULL,
+	`updated` DATETIME NULL DEFAULT NULL,
+	`updated_by` VARCHAR(50) NULL DEFAULT NULL,
+	`tasting_profile_rate` DECIMAL(10,2) NULL DEFAULT '0.00',
+	`tasting_observation` VARCHAR(200) NULL DEFAULT '0.00',
+	`period` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id_delivery_document`),
+	UNIQUE INDEX `code_UNIQUE` (`code`),
+	INDEX `supplier_delivery_document_idx` (`supplier_id`),
+	CONSTRAINT `fk_delivery_document_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `iom_suppliers` (`person_id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB DEFAULT CHARSET=utf8;

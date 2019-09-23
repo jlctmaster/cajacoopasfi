@@ -1,0 +1,25 @@
+CREATE TABLE `iom_fee_deposit` (
+	`id_fee_deposit` INT(11) NOT NULL AUTO_INCREMENT,
+	`supplier_id` INT(11) NULL DEFAULT NULL,
+	`location_id` INT(10) NOT NULL,
+	`period` INT(11) NULL DEFAULT NULL,
+	`type_item_id` INT(10) NOT NULL,
+	`item_id` INT(10) NOT NULL,
+	`fee_deposit` DECIMAL(10,2) NULL DEFAULT '0.00',
+	`input` DECIMAL(10,0) NULL DEFAULT '0',
+	`output` DECIMAL(10,2) NULL DEFAULT '0.00',
+	`created` TIMESTAMP NULL DEFAULT NULL,
+	`updated` DATETIME NULL DEFAULT NULL,
+	`status` INT(11) NULL DEFAULT '1',
+	`deleted` INT(1) NULL DEFAULT NULL,
+	PRIMARY KEY (`id_fee_deposit`),
+	INDEX `supplier_idx` (`supplier_id`),
+	INDEX `location_idx` (`location_id`),
+	CONSTRAINT `iom_fee_deposit_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `iom_stock_locations` (`location_id`),
+	CONSTRAINT `iom_fee_deposit_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `iom_suppliers` (`person_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+ROW_FORMAT=DYNAMIC
+AUTO_INCREMENT=1
+;

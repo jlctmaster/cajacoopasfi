@@ -13,51 +13,55 @@
 						'class'=>'form-control input-sm',
 						'value'=>$fee_deposit_info->supplier_id)
 						);?>
-                                               
+                <?php echo form_input(array(
+						'name'=>'supplier_id',
+						'id'=>'supplier_id',
+						'type'=>'hidden',
+						'value'=>$fee_deposit_info->supplier_id)
+						);?>                               
 			</div>
 		</div>
                 
-                <div class="form-group form-group-sm">
+        <div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('fees_deposit_location'), 'location', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_dropdown('location', $locations, $selected_location, array('class'=>'form-control', 'id' => 'location_id')); ?>
 			</div>
 		</div>
 		
-                <div class="form-group form-group-sm">
+        <div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('fees_deposit_period'), 'period', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_dropdown('period', $period, $selected_period, array('class'=>'form-control', 'id' => 'period_id')); ?>
 			</div>
 		</div>
-
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('fees_deposit_fee_kilos'), 'value', array('class'=>'required control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('fees_deposit_type_item'), 'type_item', array('class'=>'required control-label col-xs-3')); ?>
+			<div class='col-xs-8'>
+				<?php echo form_dropdown('type_item_id', $item_type, $selected_type, array('class'=>'form-control', 'id' => 'type_item_id')); ?>
+			</div>
+		</div>
+		<div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('fees_deposit_item'), 'item', array('class'=>'required control-label col-xs-3')); ?>
+			<div class='col-xs-8'>
+				<?php echo form_dropdown('item_id', $item, $selected_item, array('class'=>'form-control', 'id' => 'item_id')); ?>
+			</div>
+		</div>
+		<div class="form-group form-group-sm">
+			<?php echo form_label($this->lang->line('fees_deposit_fee_deposit'), 'value', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array(
-						'name'=>'fee_kilos',
-						'id'=>'fee_kilos',
+						'name'=>'fee_deposit',
+						'id'=>'fee_deposit',
 						'class'=>'form-control input-sm',
 						'type' => 'number',
 						'step' => 1,
-						'value'=>$fee_deposit_info->fee_kilos)
+						'value'=>$fee_deposit_info->fee_deposit)
 						);?>
 			</div>
 		</div>
                 
-                <div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('fees_deposit_fee_qqs'), 'value', array('class'=>'required control-label col-xs-3')); ?>
-			<div class='col-xs-8'>
-				<?php echo form_input(array(
-						'name'=>'fee_qqs',
-						'id'=>'fee_qqs',
-						'class'=>'form-control input-sm',
-						'type' => 'number',
-						'step' => 1,
-						'value'=>$fee_deposit_info->fee_qqs)
-						);?>
-			</div>
-		</div>
+            
                 
             
 	</fieldset>
@@ -71,10 +75,48 @@ $(document).ready(function()
 	$("#supplier").autocomplete({
 		source: "<?php echo site_url('fees_deposit/suggest_supplier');?>",
 		delay: 10,
-		appendTo: '.modal-content'
+                 minLength: 3,
+		appendTo: '.modal-content',
+                select: function(event, ui){
+                    var value = ui.item.value
+                    $("#supplier").val(value.nombre);
+                    $("#supplier_id").val(value.id);
+                    return false;
+                },
+                focus:function(event, ui){
+                    var value = ui.item.value
+                    $("#supplier").val(value.nombre);
+                    return false;
+                }
+		
 	});
+        
+        
+        $(document).on('change','#type_item',function(e){
+	var  valor = this.value
+	  // alert(id);
+        $.ajax( {  
+                url: "<?php echo site_url($controller_name.''); ?>",
+                type: 'POST',
+                dataType : 'json',
+                async: true,
+                data: 'codigo='+valor,
+                success:function(datos){
+                    if(datos)
+                    {
+                           
 
-	$('#models_edit_form').validate($.extend({
+                    }
+
+                                },
+                error: function(xhr, status) {
+                                alert('Disculpe, existiÃ³ un problema');
+                                }
+                });
+
+    });
+
+	$('#fees_deposit_edit_form').validate($.extend({
 		submitHandler: function(form) {
 			$(form).ajaxSubmit({
 				success: function(response)
@@ -90,16 +132,16 @@ $(document).ready(function()
 
 		rules:
 		{
-			name: 'required',
-			type: 'required',
-			value: 'required'
+			supplier: 'required',
+			location: 'required',
+			period: 'required'
 		},
 
 		messages:
 		{
-			name: "<?php echo $this->lang->line($controller_name.'_name_required'); ?>",
-			type: "<?php echo $this->lang->line($controller_name.'_type_required'); ?>",
-			value: "<?php echo $this->lang->line($controller_name.'_value_required'); ?>"
+			supplier: "<?php echo $this->lang->line($controller_name.'_supplier_required'); ?>",
+			location: "<?php echo $this->lang->line($controller_name.'_location_required'); ?>",
+			period: "<?php echo $this->lang->line($controller_name.'_pariod_required'); ?>"
 		}
 	}, form_support.error));
 });
