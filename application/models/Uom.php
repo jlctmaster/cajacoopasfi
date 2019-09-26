@@ -81,7 +81,22 @@ class Uom extends CI_Model
 			return $uom_obj;
 		}
 	}
-
+        
+        public function get_uom_item_suggestions($item)
+        {
+            $query = $this->db->query("select * from iom_uom where uom_id in(select uom_id from iom_items where item_id =".$item." )");
+            
+             foreach($query->result() as $row)
+            {
+                $suggestions[] = array('id' => $row->uom_id,'name'=> strtoupper($row->name)) ;
+            }
+            //if(count($suggestions)>0)
+            return $suggestions;
+            
+            
+            
+        }
+        
 	public function get_magnitude_suggestions($search)
 	{
 		$suggestions = array();

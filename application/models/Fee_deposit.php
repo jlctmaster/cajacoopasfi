@@ -37,9 +37,25 @@ class Fee_deposit extends CI_Model
 		$this->db->limit($limit);
 		$this->db->offset($offset);
 
-		return $this->db->get();
+		return $this->db->get()->result();
 	}
-
+        
+        public function get_fee_supplier($supplier,$period,$type,$item)
+        {
+           $query = $this->db->query("select fee.*,st.location_name from iom_fee_deposit as fee,iom_stock_locations as st "
+                   . "where fee.supplier_id =".$supplier." and fee.period =".$period." and fee.type_item_id = ".$type." and fee.item_id = ".$item." "
+                   . "group by id_fee_deposit order by id_fee_deposit");
+         
+            foreach($query->result() as $row)
+            {
+                $suggestions[] = array('id' => $row->id_fee_deposit,'deposito'=> strtoupper($row->location_name),
+                    'cuota'=>$row->fee_deposit,'saldo'=>$row->id_fee_deposit - $row->input) ;
+            }
+            //if(count($suggestions)>0)
+            return $suggestions;
+            //else
+            //    return $this->db->last_query();
+        }
 	/**
 	 * Gets total of rows of model database table
 	 *

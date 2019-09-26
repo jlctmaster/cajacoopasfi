@@ -27,7 +27,33 @@ class Delivery_documents extends Secure_Controller
 
 		echo json_encode($suggestions);
 	}
+        
+        /*
+	Gives search suggestions based on what is being searched for
+	*/
+	public function suggest_supplier()
+	{
+		$suggestions = $this->xss_clean($this->Fee_deposit->get_fee_supplier($this->input->get('supplier'),$this->input->get('period'),$this->input->get('type'),$this->input->get('item')));
+                
+                //print_r($suggestions);exit();
+                
+		echo json_encode($suggestions);
+	}
+        
+        public function suggest_uom()
+	{
+		$suggestions = $this->xss_clean($this->Uom->get_uom_item_suggestions($this->input->get('item')));
 
+		echo json_encode($suggestions);
+	}
+        
+        
+        public function get_fee_deposit($id)
+        {
+            $suggestions = $this->xss_clean($this->Fee_deposit->get_info($this->input->get('fee')));
+
+		echo json_encode($suggestions);
+        }
 	/*
 	Returns expense_category_manage table data rows. This will be called with AJAX.
 	*/
@@ -40,14 +66,11 @@ class Delivery_documents extends Secure_Controller
 		$order  = $this->input->get('order');
 
 		$models = $this->Delivery_document->search($search, $limit, $offset, $sort, $order);
-		
-               
-                
+		//print_r($models); exit();
                 $total_rows = $this->Delivery_document->get_found_rows($search);
                     
-                // print_r($models); exit();
+                 
 		
-                
                 $data_rows = array();
 		foreach($models->result() as $model)
 		{
@@ -66,12 +89,31 @@ class Delivery_documents extends Secure_Controller
 
 	public function view($delivery_document_id = -1)
 	{
-                //$this->load->model('delivery_document');
                 $data['delivery_document_info'] = $this->Delivery_document->get_info($delivery_document_id);
 
-                //$data['delivery_document'] = $this->Delivery_document->get_info($delivery_document_id);
-                
-                
+                if($delivery_document_id > 0)
+                {
+                    $fee = array('-1' => $this->lang->line('common_none_selected_text'));
+                    $all_row = $this->Fee_deposit->get_fee_supplier($data['delivery_document_info']->supplier_id,$data['delivery_document_info']->period,
+                            $data['delivery_document_info']->type_item_id,$data['delivery_document_info']->item_id);
+                   // print_r($all_row);exit();
+                    for($i = 0;$i <count($all_row);$i++)
+                    {
+                        $cadena = strtoupper($all_row[$i]['deposito']).'(CUOTA: '.$all_row[$i]['cuota'].' SALDO: '.$all_row[$i]['saldo'].')';
+                            $fee[$all_row[$i]['id']] = $cadena;
+                    }
+                    $data['fee']=$fee;
+                    $data['fee_selected']= $data['delivery_document_info']->fee_deposit_id;
+                    
+                    $uom_item = $this->Uom->get_uom_item_suggestions($data['delivery_document_info']->item_id);
+                    $data['uom_selected'] = $uom_item[0]['name'];
+                    
+                    
+                    $supplier = $this->Supplier->get_info($data['delivery_document_info']->supplier_id);
+                    $data['supplier_selected'] = $supplier;
+                    
+                }   
+                                
                 $period = array('-1' => $this->lang->line('common_none_selected_text'));
                 $all_row = $this->Period->get_all()->result_array();
 		//print_r($all_row);exit();
@@ -84,6 +126,51 @@ class Delivery_documents extends Secure_Controller
 		$data['period'] = $period;
                 $data['selected_period'] = $data['delivery_document_info']->period;
                 
+                $type_item = array('-1' => $this->lang->line('common_none_selected_text'));
+                $all_row = $this->Item_type->get_all()->result_array();			
+                //print_r($all_row);exit();			
+                for($i = 0;$i <count($all_row);$i++)
+                {
+                        $type_item[$all_row[$i]['item_type_id']] = $all_row[$i]['name'];
+                }			
+                $data['item_type'] = $type_item;
+                $data['selected_type_item']= $data['delivery_document_info']->type_item_id;
+                
+                $item = array('-1' => $this->lang->line('common_none_selected_text'));
+                $all_row = $this->Item->get_all()->result_array();
+
+                //print_r($all_row);exit();
+
+                for($i = 0;$i <count($all_row);$i++)
+                {
+                        $item[$all_row[$i]['item_id']] = $all_row[$i]['name'];
+                }			
+                $data['item'] = $item;
+                $data['selected_item'] = $data['delivery_document_info']->item_id;
+                
+                $uom = array('-1' => $this->lang->line('common_none_selected_text'));
+                $all_row = $this->Uom->get_all()->result_array();
+
+                //print_r($all_row);exit();
+
+                for($i = 0;$i <count($all_row);$i++)
+                {
+                        $uom[$all_row[$i]['uom_id']] = $all_row[$i]['name'];
+                }			
+                $data['uom'] = $uom;
+                //$data['uom_selec']
+                
+                $certifier = array('-1' => $this->lang->line('common_none_selected_text'));
+                $all_row = $this->Certifier->get_all()->result_array();
+
+                //print_r($all_row);exit();
+
+                for($i = 0;$i <count($all_row);$i++)
+                {
+                        $certifier[$all_row[$i]['id']] = $all_row[$i]['name'];
+                }			
+                $data['certifier'] = $certifier;
+                $data['certifier_selected']= $data['delivery_document_info']->certifier_id;
                 
                 //print_r($data);exit();
 		$this->load->view("delivery_documents/form", $data);
@@ -91,20 +178,31 @@ class Delivery_documents extends Secure_Controller
 
 	public function save($model_id = -1)
 	{
+                //print_r($_POST);exit();
 		$model_data = array(
-			'name' => $this->input->post('name'),
-			'type' => $this->input->post('type'),
-			'value' => $this->input->post('value')
+                        'created'     => date('Y-m-d H:i:s'),
+			'supplier_id' => $this->input->post('supplier_id'),
+			'code' => $this->input->post('code'),
+			'certifier_id' => $this->input->post('certifier_id'),
+                        'period'=>$this->input->post('period_id'),
+                        'item_id'=>$this->input->post('item_id'),
+                        'type_item_id'=>$this->input->post('type_item_id'),
+                        'amount_entered'=>$this->input->post('amount'),
+                        'fee_deposit_id'=>$this->input->post('id_fee_deposit'),
+                        'status'=>'1',
+                        'deleted'=>'0',
+                        'observation'=>$this->input->post('observation')
 		);
-
-		if($this->Model->save($model_data, $model_id))
+                //print_r($model_data);exit();
+                
+		if($this->Delivery_document->save($model_data, $model_id))
 		{
 			$model_data = $this->xss_clean($model_data);
 
 			// New id
 			if($model_id == -1)
 			{
-				echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('models_successful_adding'), 'id' => $model_data['id']));
+				echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('models_successful_adding'), 'id' => $model_data['id_delivery_document']));
 			}
 			else // Existing Model
 			{
@@ -113,7 +211,7 @@ class Delivery_documents extends Secure_Controller
 		}
 		else//failure
 		{
-			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('models_error_adding_updating') . ' ' . $model_data['name'], 'id' => -1));
+			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('models_error_adding_updating') . ' ' . $model_data['id_delivery_document'], 'id' => -1));
 		}
 	}
 
@@ -121,7 +219,7 @@ class Delivery_documents extends Secure_Controller
 	{
 		$model_to_delete = $this->input->post('ids');
 
-		if($this->Model->delete_list($model_to_delete))
+		if($this->Delivery_document->delete_list($model_to_delete))
 		{
 			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('models_successful_deleted') . ' ' . count($model_to_delete) . ' ' . $this->lang->line('models_one_or_multiple')));
 		}

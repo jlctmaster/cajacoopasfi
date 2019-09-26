@@ -726,10 +726,15 @@ function get_delivery_document_manage_table_headers()
 	$CI =& get_instance();
 
 	$headers = array(
-		array('model_id' => $CI->lang->line('models_model_id')),
-		array('name' => $CI->lang->line('models_name')),
-		array('type' => $CI->lang->line('models_type')),
-		array('value' => $CI->lang->line('models_value')),
+		array('id' => $CI->lang->line('delivery_document_id_delivery_doocument')),
+		array('created' => $CI->lang->line('delivery_document_created')),
+                array('code' => $CI->lang->line('delivery_document_code')),
+                array('supplier' => $CI->lang->line('delivery_document_supplier')),
+                array('period' => $CI->lang->line('delivery_document_period')),
+                array('type' => $CI->lang->line('delivery_document_type_item')),
+                array('item' => $CI->lang->line('delivery_document_item')),
+		array('amount' => $CI->lang->line('delivery_document_amount')),
+		array('deposit' => $CI->lang->line('delivery_document_deposit')),
 	);
 
 	return transform_headers($headers);
@@ -745,18 +750,16 @@ function get_delivery_document_data_row($model)
 
 	return array (
 		'id_delivery_document' => $model->id_delivery_document,
+                'created' => date('d-m-Y',strtotime($model->created)),
 		'code' => $model->code,
-		'supplier_id' => $model->supplier_id,
-		'status' => $model->status,
-                'created' => $model->created,
-                'created_by' => $model->created_by,
-                'updated' => $model->updated,
-                'updated_by' => $model->update_by,
-                'tasting_profile_rate'=> $model->tasting_profile_rate,
-                'tasting_observation'=> $model->tasting_observation,
-                'period'=> $model->period,
+		'supplier' => $model->first_name.' '.$model->last_name,
+		'period' => $model->name,
+                'type' => $model->types,
+                'item' => $model->producto,
+                'amount'=> $model->amount_entered,
+                'deposit'=>$model->deposit,
                 'edit' => anchor($controller_name."/view/$model->id_delivery_document", '<span class="glyphicon glyphicon-edit"></span>',
-			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+			array('class'=>'modal-dlg modal-dlg-wide', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
 		));
 }
 

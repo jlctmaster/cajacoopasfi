@@ -4,7 +4,7 @@
  * Base class for MODEL classes
  */
 
-class Delivery_document extends CI_Model
+class analysis_lab extends CI_Model
 {
 	/**
 	 * Determines whether the given MODEL exists in the model database table
@@ -15,8 +15,8 @@ class Delivery_document extends CI_Model
 	 */
 	public function exists($model_id)
 	{
-		$this->db->from('delivery_documents');
-		$this->db->where('id_delivery_document', $model_id);
+		$this->db->from('models');
+		$this->db->where('model_id', $model_id);
 
 		return ($this->db->get()->num_rows() == 1);
 	}
@@ -32,7 +32,7 @@ class Delivery_document extends CI_Model
 	 */
 	public function get_all($limit = 10000, $offset = 0)
 	{
-		$this->db->from('delivery_documents');
+		$this->db->from('models');
 		$this->db->order_by('name', 'asc');
 		$this->db->limit($limit);
 		$this->db->offset($offset);
@@ -47,7 +47,7 @@ class Delivery_document extends CI_Model
 	 */
 	public function get_total_rows()
 	{
-		$this->db->from('delivery_documents');
+		$this->db->from('models');
 		$this->db->where('deleted', 0);
 
 		return $this->db->count_all_results();
@@ -60,9 +60,9 @@ class Delivery_document extends CI_Model
 	 *
 	 * @return array containing all the fields of the table row
 	 */
-	public function get_info($id)
+	public function get_info($model_id)
 	{
-		$query = $this->db->get_where('delivery_documents', array('id_delivery_document' => $id), 1);
+		$query = $this->db->get_where('models', array('model_id' => $model_id), 1);
 
 		if($query->num_rows() == 1)
 		{
@@ -71,18 +71,34 @@ class Delivery_document extends CI_Model
 		else
 		{
 			//create object with empty properties.
-			$Delivery_document_obj = new stdClass;
+			$Model_obj = new stdClass;
 
-			foreach($this->db->list_fields('delivery_documents') as $field)
+			foreach($this->db->list_fields('models') as $field)
 			{
-				$Delivery_document_obj->$field = '';
+				$model_obj->$field = '';
 			}
 
-			return $Delivery_document_obj;
+			return $model_obj;
 		}
 	}
 
-	
+	public function get_type_suggestions($search)
+	{
+		$suggestions = array();
+		$this->db->distinct();
+		$this->db->select('type');
+		$this->db->from('models');
+		$this->db->like('type', $search);
+		$this->db->where('deleted', 0);
+		$this->db->order_by('type', 'asc');
+		foreach($this->db->get()->result() as $row)
+		{
+			$suggestions[] = array('label' => $row->type);
+		}
+
+		return $suggestions;
+	}
+
 	/**
 	 * Gets information about model as an array of rows
 	 *
@@ -92,9 +108,9 @@ class Delivery_document extends CI_Model
 	 */
 	public function get_multiple_info($model_ids)
 	{
-		$this->db->from('delivery_documents');
-		$this->db->where_in('id_delivery_document', $model_ids);
-		$this->db->order_by('created', 'asc');
+		$this->db->from('models');
+		$this->db->where_in('model_id', $model_ids);
+		$this->db->order_by('name', 'asc');
 
 		return $this->db->get();
 	}
@@ -112,19 +128,19 @@ class Delivery_document extends CI_Model
 	{
 		if(!$model_id || !$this->exists($model_id))
 		{
-			if($this->db->insert('delivery_documents', $model_data))
+			if($this->db->insert('models', $model_data))
 			{
-				$model_data['id_delivery_document'] = $this->db->insert_id();
+				$model_data['model_id'] = $this->db->insert_id();
 
 				return TRUE;
 			}
-                        //print_r($this->db->error());exit();
+
 			return FALSE;
 		}
 
-		$this->db->where('id_delivery_document', $model_id);
+		$this->db->where('model_id', $model_id);
 
-		return $this->db->update('delivery_documents', $model_data);
+		return $this->db->update('models', $model_data);
 	}
 
 	/*
@@ -138,29 +154,20 @@ class Delivery_document extends CI_Model
 	/*
 	Perform a search on model
 	*/
-	public function search($search, $rows = 0, $limit_from = 0, $sort = 'code', $order='asc', $count_only = FALSE)
+	public function search($search, $rows = 0, $limit_from = 0, $sort = 'name', $order='asc', $count_only = FALSE)
 	{
 		// get_found_rows case
 		if($count_only == TRUE)
 		{
-			$this->db->select('COUNT(id_delivery_document) as count');
-		}  
-                $this->db->select('dd.*,people.*,periods.name,loc.location_name as deposito,items.name as producto,type.name as types');
-		$this->db->from('delivery_documents AS dd');
-                $this->db->join('people AS people', 'dd.supplier_id = people.person_id');
-                $this->db->join('periods AS periods', 'dd.period = periods.id');
-                $this->db->join('items AS items', 'items.item_id = dd.item_id');
-                $this->db->join('item_types AS type', 'type.item_type_id = dd.type_item_id');
-                $this->db->join('fee_deposit AS fd', 'dd.fee_deposit_id = fd.id_fee_deposit');
-                $this->db->join('stock_locations AS loc', 'fd.location_id = loc.location_id');
+			$this->db->select('COUNT(model_id) as count');
+		}
+
+		$this->db->from('models');
 		$this->db->group_start();
-                $this->db->like('dd.supplier_id', $search);
-		$this->db->or_like('dd.period', $search);
-                $this->db->or_like('dd.item_id', $search);
-                $this->db->or_like('dd.code', $search);
-		$this->db->or_like('dd.period', $search);
+			$this->db->like('name', $search);
+			$this->db->or_like('type', $search);
 		$this->db->group_end();
-		$this->db->where('dd.deleted', 0);
+		$this->db->where('deleted', 0);
 
 		// get_found_rows case
 		if($count_only == TRUE)
@@ -174,11 +181,8 @@ class Delivery_document extends CI_Model
 		{
 			$this->db->limit($rows, $limit_from);
 		}
-                
-                $res = $this->db->get();
-		
-                
-                return $res; 
+
+		return $this->db->get();
 	}
 
 	/**
