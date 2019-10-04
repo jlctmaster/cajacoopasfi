@@ -172,7 +172,8 @@ $autoload['model'] = array(
 	'Adjustnote',
 	'Creditnote',
 	'Stock_location',
-    'Delivery_document',
-    'Fee_deposit',
-    'Convert_uom'
+        'Delivery_document',
+        'Fee_deposit',
+        'Convert_uom',
+        'Analysis_lab'
     );

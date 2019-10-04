@@ -93,3 +93,5 @@ $lang["module_fees_deposit"] = "Cuotas de Deposito";
 $lang["module_fees_deposit_desc"] = "Agregar, Cuotas de Deposito";
 $lang["module_delivery_documents"] = "Documento de Entrega";
 $lang["module_delivery_documents_desc"] = "Agregar, Documento de Entrega";
+$lang["module_analysis_labs"] = "Analisis de Laboratorio";
+$lang["module_analysis_labs_desc"] = "Agregar, Analisis de Laboratorio";

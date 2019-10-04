@@ -799,6 +799,55 @@ function get_model_data_row($model)
 		));
 }
 
+
+
+/*
+Get the header for the model tabular view
+*/
+function get_analysis_lab_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$headers = array(
+		array('id_analysis' => $CI->lang->line('analysis_labs_id')),
+		array('created' => $CI->lang->line('analysis_labs_created')),
+		array('delivery_document' => $CI->lang->line('analysis_labs_delivery_document')),
+		array('supplier' => $CI->lang->line('analysis_labs_supplier')),
+                array('sello' => $CI->lang->line('analysis_labs_sello')),
+                array('sample' => $CI->lang->line('analysis_labs_muestra')),
+                array('humedad' => $CI->lang->line('analysis_labs_humedad')),
+                array('entered' => $CI->lang->line('analysis_labs_kilos_entered')),
+                array('secos' => $CI->lang->line('analysis_labs_kilos_secos')),
+                array('descontados' => $CI->lang->line('analysis_labs_kilos_descontado'))
+	);
+
+	return transform_headers($headers);
+}
+
+/*
+Gets the html data row for the model
+*/
+function get_analysis_lab_data_row($model)
+{
+	$CI =& get_instance();
+	$controller_name = strtolower(get_class($CI));
+
+	return array (
+		'id_analysis' => $model->id_analysis_lab,
+                'created'=> date('d-m-Y',strtotime($model->created)),
+                'delivery_document'=>$model->document_delivery_id,
+                'supplier'=>$model-> $model->first_name.' '.$model->last_name,
+		'sello' => $model->id_sello,
+		'sample' => $model->sample_analysis_lab,
+		'humedad' => $model->humedad_estatica,
+                'entered'=>$model->kilos_ingresados,
+                'secos'=>$model->kilos_secos,
+		'edit' => anchor($controller_name."/view/$model->id_analysis_lab", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
+		));
+}
+
+
 /*
 Get the header for the item_type tabular view
 */
